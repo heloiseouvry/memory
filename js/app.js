@@ -16,10 +16,10 @@ const memory = {
     ],
 
     init() {
-        memory.createTiles(20);
+        memory.createTiles(24);
         memory.setTileSize(6);
         memory.eventListener();
-        memory.setTileImages();
+        memory.shuffleTiles();
         console.log('init');
     },
 
@@ -47,17 +47,13 @@ const memory = {
         }
     },
 
-    setTileImages() {
+    createRandomSet() {
         const randomSet = new Set();
         const tiles = document.querySelectorAll(".tile");
         for (let i = 0; i < tiles.length; i++) {
             while (randomSet.size != i + 1) { randomSet.add(Math.round(Math.random() * tiles.length)); }
         }
-        for (let i = 0; i < tiles.length; i++) {
-        }
-        // for (let item of randomSet) {
-        //     console.log(item);
-        // }
+        return randomSet;
     },
 
     eventListener() {
@@ -74,7 +70,18 @@ const memory = {
                 event.target.style.background = `url(../images/${event.target.dataset.img}.png) center / cover`;
             }
         }
-    }
+    },
+
+    shuffleTiles(){
+        let randomSetArray = Array.from(memory.createRandomSet());
+        const tiles = document.querySelectorAll(".tile");
+        for (let i = 0; i < tiles.length; i++){
+            tiles[i].style.order = randomSetArray[i];
+            tiles[i].classList.toggle('recto');
+            tiles[i].classList.toggle('verso');
+            tiles[i].style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

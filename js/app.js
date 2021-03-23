@@ -15,7 +15,7 @@ const memory = {
         "whale",
     ],
 
-    rectoTiles : [],
+    rectoTiles: [],
 
     init() {
         memory.createTiles(24);
@@ -69,7 +69,8 @@ const memory = {
                     break;
                 case 1:
                     memory.addRectoTile(event.target);
-                    setTimeout(memory.hideTiles, 1000);
+                    memory.checkTwoTiles(memory.rectoTiles[0], memory.rectoTiles[1]);
+                    // setTimeout(memory.hideTiles, 1000);
                     break;
             }
         }
@@ -99,10 +100,14 @@ const memory = {
     checkTwoTiles(tile1, tile2) {
         if (tile1.dataset.img === tile2.dataset.img) {
             console.log("Ce sont les mêmes !");
+            memory.rectoTiles = [];
+        } else{
+            setTimeout(memory.hideTiles, 1000);
         }
+
     },
 
-    addRectoTile(tile){
+    addRectoTile(tile) {
         if (tile.classList.contains('verso')) {
             memory.fromVersoToRecto(tile);
             memory.rectoTiles.push(tile);

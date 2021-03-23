@@ -16,7 +16,7 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100vw;
-    padding: 2em;
+    padding-top: 2em;
     background-color: #87f783;
     font-weight: bold;
 }
@@ -28,6 +28,12 @@ header {
 
 .score-text {
     font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.consecutive-score-text {
+    margin-bottom: 1em;
+    visibility: hidden;
 }
 
 #memory-container {

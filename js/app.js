@@ -16,6 +16,8 @@ const memory = {
     ],
 
     score: 0,
+    consecutiveScore: 0,
+    bestConsecutiveScore: 0,
     rectoTiles: [],
 
     init() {
@@ -104,9 +106,13 @@ const memory = {
             console.log("Ce sont les mêmes !");
             memory.score++;
             memory.displayScore(memory.score);
+            memory.consecutiveScore++;
+            if(memory.consecutiveScore > memory.bestConsecutiveScore){memory.bestConsecutiveScore = memory.consecutiveScore}
+            memory.displayConsecutiveScore(memory.bestConsecutiveScore);
             memory.rectoTiles = [];
         } else {
-            setTimeout(memory.hideTiles, 1000);
+            memory.consecutiveScore = 0;
+            setTimeout(memory.hideTiles, 500);
         }
 
     },
@@ -124,10 +130,21 @@ const memory = {
         memory.rectoTiles = [];
     },
 
-    displayScore(){
+    displayScore() {
         const scoreSpan = document.querySelector("#score");
         scoreSpan.textContent = memory.score;
     },
+
+    displayConsecutiveScore() {
+        const consecutiveScorePara = document.querySelector(".consecutive-score-text");
+        const consecutiveScoreSpan = document.querySelector("#consecutive-score");
+        consecutiveScoreSpan.textContent = memory.bestConsecutiveScore;
+        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.visibility = "visible";}
+    },
+
+    checkConsecutiveScore(){
+
+    }
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

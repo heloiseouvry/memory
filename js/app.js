@@ -1,18 +1,39 @@
 const memory = {
 
+    bankOfImages: [
+        "bird",
+        "brain",
+        "christmas",
+        "elephant",
+        "eye",
+        "kitchen",
+        "leaves",
+        "painting",
+        "skull",
+        "trees",
+        "unicorn",
+        "whale",
+    ],
+
     init() {
         memory.createTiles(20);
         memory.setTileSize(6);
         memory.eventListener();
+        memory.setTileImages();
         console.log('init');
     },
 
     createTiles(noTiles) {
         const memoryContainer = document.querySelector("#memory-container");
         for (let i = 0; i < noTiles; i++) {
+            let image = memory.bankOfImages[Math.floor(i / 2)];
             let newTile = document.createElement("div");
             newTile.classList.add("tile");
-            newTile.classList.add("verso");
+            newTile.classList.add(i);
+            newTile.classList.add("recto");
+            newTile.setAttribute("data-img",image);
+            newTile.style.background = `url(../images/${image}.png) center / cover`;
+
             memoryContainer.appendChild(newTile);
         }
     },
@@ -26,6 +47,19 @@ const memory = {
         }
     },
 
+    setTileImages() {
+        const randomSet = new Set();
+        const tiles = document.querySelectorAll(".tile");
+        for (let i = 0; i < tiles.length; i++) {
+            while (randomSet.size != i + 1) { randomSet.add(Math.round(Math.random() * tiles.length)); }
+        }
+        for (let i = 0; i < tiles.length; i++) {
+        }
+        // for (let item of randomSet) {
+        //     console.log(item);
+        // }
+    },
+
     eventListener() {
         document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
     },
@@ -34,6 +68,11 @@ const memory = {
         if (event.target.classList.contains("tile")) {
             event.target.classList.toggle('verso');
             event.target.classList.toggle('recto');
+            if(event.target.classList.contains('verso')){
+                event.target.style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
+            } else {
+                event.target.style.background = `url(../images/${event.target.dataset.img}.png) center / cover`;
+            }
         }
     }
 }

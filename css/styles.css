@@ -32,6 +32,9 @@ header {
 }
 
 .tile {
-    background-color: #d3f557;
     border: 2px solid black;
+}
+
+.tile.verso {
+    background: url(../images/tile_verso.jpg) 0% 0% / cover;
 }

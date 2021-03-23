@@ -15,6 +15,8 @@ const memory = {
         "whale",
     ],
 
+    rectoTiles : [],
+
     init() {
         memory.createTiles(24);
         memory.setTileSize(6);
@@ -31,7 +33,7 @@ const memory = {
             newTile.classList.add("tile");
             newTile.classList.add(i);
             newTile.classList.add("recto");
-            newTile.setAttribute("data-img",image);
+            newTile.setAttribute("data-img", image);
             memoryContainer.appendChild(newTile);
         }
     },
@@ -59,36 +61,59 @@ const memory = {
     },
 
     handleTileClick(event) {
+        //we check that we haven't clicked on the parent container
         if (event.target.classList.contains("tile")) {
-            if(event.target.classList.contains('verso')){
-                memory.fromVersoToRecto(event.target);
-            } else {
-                memory.fromRectoToVerso(event.target);
+            switch (memory.rectoTiles.length) {
+                case 0:
+                    memory.addRectoTile(event.target);
+                    break;
+                case 1:
+                    memory.addRectoTile(event.target);
+                    setTimeout(memory.hideTiles, 1000);
+                    break;
             }
         }
     },
 
-    shuffleTiles(){
+    shuffleTiles() {
         let randomSetArray = Array.from(memory.createRandomSet());
         const tiles = document.querySelectorAll(".tile");
-        for (let i = 0; i < tiles.length; i++){
+        for (let i = 0; i < tiles.length; i++) {
             tiles[i].style.order = randomSetArray[i];
             this.fromRectoToVerso(tiles[i]);
         }
     },
 
-    fromRectoToVerso(tile){
+    fromRectoToVerso(tile) {
         tile.classList.toggle('verso');
         tile.classList.toggle('recto');
         tile.style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
     },
 
-    fromVersoToRecto(tile){
+    fromVersoToRecto(tile) {
         tile.classList.toggle('verso');
         tile.classList.toggle('recto');
         tile.style.background = `url(../images/${tile.dataset.img}.png) center / cover`;
     },
 
+    checkTwoTiles(tile1, tile2) {
+        if (tile1.dataset.img === tile2.dataset.img) {
+            console.log("Ce sont les mêmes !");
+        }
+    },
+
+    addRectoTile(tile){
+        if (tile.classList.contains('verso')) {
+            memory.fromVersoToRecto(tile);
+            memory.rectoTiles.push(tile);
+        }
+    },
+
+    hideTiles() {
+        memory.fromRectoToVerso(memory.rectoTiles[0]);
+        memory.fromRectoToVerso(memory.rectoTiles[1]);
+        memory.rectoTiles = [];
+    },
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

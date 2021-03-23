@@ -15,6 +15,7 @@ const memory = {
         "whale",
     ],
 
+    score: 0,
     rectoTiles: [],
 
     init() {
@@ -22,6 +23,7 @@ const memory = {
         memory.setTileSize(6);
         memory.eventListener();
         memory.shuffleTiles();
+        memory.displayScore(memory.score);
         console.log('init');
     },
 
@@ -100,8 +102,10 @@ const memory = {
     checkTwoTiles(tile1, tile2) {
         if (tile1.dataset.img === tile2.dataset.img) {
             console.log("Ce sont les mêmes !");
+            memory.score++;
+            memory.displayScore(memory.score);
             memory.rectoTiles = [];
-        } else{
+        } else {
             setTimeout(memory.hideTiles, 1000);
         }
 
@@ -118,6 +122,11 @@ const memory = {
         memory.fromRectoToVerso(memory.rectoTiles[0]);
         memory.fromRectoToVerso(memory.rectoTiles[1]);
         memory.rectoTiles = [];
+    },
+
+    displayScore(){
+        const scoreSpan = document.querySelector("#score");
+        scoreSpan.textContent = memory.score;
     },
 }
 

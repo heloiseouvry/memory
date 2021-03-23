@@ -32,8 +32,6 @@ const memory = {
             newTile.classList.add(i);
             newTile.classList.add("recto");
             newTile.setAttribute("data-img",image);
-            newTile.style.background = `url(../images/${image}.png) center / cover`;
-
             memoryContainer.appendChild(newTile);
         }
     },
@@ -62,12 +60,10 @@ const memory = {
 
     handleTileClick(event) {
         if (event.target.classList.contains("tile")) {
-            event.target.classList.toggle('verso');
-            event.target.classList.toggle('recto');
             if(event.target.classList.contains('verso')){
-                event.target.style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
+                memory.fromVersoToRecto(event.target);
             } else {
-                event.target.style.background = `url(../images/${event.target.dataset.img}.png) center / cover`;
+                memory.fromRectoToVerso(event.target);
             }
         }
     },
@@ -77,11 +73,22 @@ const memory = {
         const tiles = document.querySelectorAll(".tile");
         for (let i = 0; i < tiles.length; i++){
             tiles[i].style.order = randomSetArray[i];
-            tiles[i].classList.toggle('recto');
-            tiles[i].classList.toggle('verso');
-            tiles[i].style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
+            this.fromRectoToVerso(tiles[i]);
         }
     },
+
+    fromRectoToVerso(tile){
+        tile.classList.toggle('verso');
+        tile.classList.toggle('recto');
+        tile.style.background = `url(../images/tile_verso.jpg) 0% 0% / cover`;
+    },
+
+    fromVersoToRecto(tile){
+        tile.classList.toggle('verso');
+        tile.classList.toggle('recto');
+        tile.style.background = `url(../images/${tile.dataset.img}.png) center / cover`;
+    },
+
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

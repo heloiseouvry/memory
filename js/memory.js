@@ -1,4 +1,6 @@
-const memory = {
+// TODO: Ranger le module "memory" pour qu'il soit indépendant du module "game"
+
+export const memory = {
 
     bankOfImages: {
         classic: [
@@ -37,16 +39,10 @@ const memory = {
     bestConsecutiveScore: 0,
     noTiles: 16,
     rectoTiles: [],
-    params: {
-        theme: ["classic", "lpr"],
-        difficulty: ["easy", "normal", "hard"],
-        selectedTheme: "classic",
-        selectedDifficulty: "normal"
-    },
+    params: null,
 
     init() {
-        document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
-        console.log('init');
+        console.log('memory init');
     },
 
     createTiles(noTiles) {
@@ -149,7 +145,7 @@ const memory = {
         memory.fromRectoToVerso(memory.rectoTiles[1]);
         memory.rectoTiles = [];
     },
-
+    
     displayScore() {
         const scoreSpan = document.querySelector("#score");
         scoreSpan.textContent = memory.score;
@@ -162,18 +158,8 @@ const memory = {
         if (memory.bestConsecutiveScore > 1) { consecutiveScorePara.style.display = "inline"; }
     },
 
-    handleFormSubmit(event) {
-        event.preventDefault();
-        for (const theme of memory.params.theme) {
-            if (document.querySelector(`#start-menu__form__theme--${theme}`).checked) { memory.params.selectedTheme = theme };
-        }
-        for (const difficulty of memory.params.difficulty) {
-            if (document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked) { memory.params.selectedDifficulty = difficulty };
-        }
-        memory.launchGame();
-    },
-
-    launchGame() {
+    launchGame(params) {
+        memory.params = params;
         document.querySelector("#start-menu").style.display = "none";
         switch (memory.params.selectedDifficulty) {
             case "easy":
@@ -199,7 +185,4 @@ const memory = {
             document.querySelector("#faded-bckg").style.display = "initial";
         };
     },
-}
-
-document.addEventListener('DOMContentLoaded', memory.init);
-// window.addEventListener('resize', memory.setTileSize(6));
+};

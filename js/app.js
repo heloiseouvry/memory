@@ -83,9 +83,6 @@ const memory = {
         return randomSet;
     },
 
-    eventListener() {
-    },
-
     handleTileClick(event) {
         //we check that we haven't clicked on the parent container
         if (event.target.classList.contains("tile")) {
@@ -198,7 +195,8 @@ const memory = {
 
     checkIfWon() {
         if(memory.score === (memory.noTiles / 2)){
-            console.log("C'est gagné !");
+            document.querySelector("#end-menu").style.display = "flex";
+            document.querySelector("#faded-bckg").style.display = "initial";
         };
     },
 }

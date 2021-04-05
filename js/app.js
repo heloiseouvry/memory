@@ -28,7 +28,7 @@ const memory = {
 
     init() {
         document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
-        
+
         console.log('init');
     },
 
@@ -45,13 +45,16 @@ const memory = {
         }
     },
 
-    setTileSize(noTilesPerRow) {
+    setTileSize(noTiles) {
         const memoryContainer = document.querySelector("#memory-container");
-        const memoryContainerStyles = window.getComputedStyle(memoryContainer);
+        const memoryContainerHeight = parseInt(memoryContainer.style.height);
         let tiles = document.querySelectorAll(".tile");
+        let noTilesPerRow = noTiles < 20 ? 4 : 6;
+        let noTilesPerColumn = noTiles / noTilesPerRow;
         for (let tile of tiles) {
-            tile.style.width = tile.style.height = (parseInt(memoryContainerStyles.width) / noTilesPerRow) + "px";
+            tile.style.width = tile.style.height = (memoryContainerHeight / noTilesPerColumn) + "px";
         }
+        memoryContainer.style.width = parseInt(tiles[0].style.width) * noTilesPerRow + "px";
     },
 
     createRandomSet() {
@@ -109,7 +112,7 @@ const memory = {
             memory.score++;
             memory.displayScore(memory.score);
             memory.consecutiveScore++;
-            if(memory.consecutiveScore > memory.bestConsecutiveScore){memory.bestConsecutiveScore = memory.consecutiveScore}
+            if (memory.consecutiveScore > memory.bestConsecutiveScore) { memory.bestConsecutiveScore = memory.consecutiveScore }
             memory.displayConsecutiveScore(memory.bestConsecutiveScore);
             memory.rectoTiles = [];
         } else {
@@ -141,24 +144,36 @@ const memory = {
         const consecutiveScorePara = document.querySelector(".consecutive-score-text");
         const consecutiveScoreSpan = document.querySelector("#consecutive-score");
         consecutiveScoreSpan.textContent = memory.bestConsecutiveScore;
-        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "inline";}
+        if (memory.bestConsecutiveScore > 1) { consecutiveScorePara.style.display = "inline"; }
     },
 
     handleFormSubmit(event) {
         event.preventDefault();
-        for(const theme of memory.params.theme){
-            if(document.querySelector(`#start-menu__form__theme--${theme}`).checked){memory.params.selectedTheme = theme};
+        for (const theme of memory.params.theme) {
+            if (document.querySelector(`#start-menu__form__theme--${theme}`).checked) { memory.params.selectedTheme = theme };
         }
-        for(const difficulty of memory.params.difficulty){
-            if(document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked){memory.params.selectedDifficulty = difficulty};
+        for (const difficulty of memory.params.difficulty) {
+            if (document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked) { memory.params.selectedDifficulty = difficulty };
         }
         memory.launchGame();
     },
 
     launchGame() {
         document.querySelector("#start-menu").style.display = "none";
-        memory.createTiles(24);
-        memory.setTileSize(6);
+        switch (memory.params.selectedDifficulty) {
+            case "easy":
+                memory.createTiles(8);
+                memory.setTileSize(8);
+                break;
+            case "normal":
+                memory.createTiles(16);
+                memory.setTileSize(16);
+                break;
+            case "hard":
+                memory.createTiles(24);
+                memory.setTileSize(24);
+                break;
+        }
         document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
         memory.shuffleTiles();
         memory.displayScore(memory.score);

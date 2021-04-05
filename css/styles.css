@@ -83,6 +83,99 @@ header {
 #memory-container {
   width: 1000px;
   height: 600px;
+}
+
+#main-title {
+  font-size: 3em;
+  margin-bottom: 0.5em;
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+#start-menu {
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 50vh;
+  background-color: #c85;
+  border-radius: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch-wrap {
+  position: relative;
+  display: inline-block;
+  width: 110px;
+  height: 60px;
+}
+
+/* Hide default HTML checkbox */
+.switch-wrap input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+  border-radius: 30px;
+  background-color: #585858;
+}
+
+.switch::after {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 48px;
+  height: 48px;
+  content: "";
+  border-radius: 50%;
+  background-color: #ccc;
+  transition: 0.2s;
+}
+
+.switch-wrap:has(input:checked){
+  background-color: #400;
+}
+
+input:checked + .switch::after {
+  transform: translateX(48px);
+}
+
+.score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.score-text {
+    font-size: 1.5em;
+}
+
+.consecutive-score-text {
+  margin-left: 1em;
+  display: none;
+  font-style: italic;
+  font-size: 1.5em;
+}
+
+#memory-container {
+  width: 60vw;
+  background-color: #57b6f5;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -90,9 +183,6 @@ header {
 
 .tile {
   border: 2px solid black;
-  min-width: 100px;
-  min-height: 100px;
-  flex-basis: auto;
 }
 
 .tile.verso {

@@ -45,7 +45,6 @@ const memory = {
 
     init() {
         document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
-
         console.log('init');
     },
 
@@ -194,6 +193,7 @@ const memory = {
         document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
         memory.shuffleTiles();
         memory.displayScore(memory.score);
+    },
     },
 }
 

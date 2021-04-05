@@ -1,19 +1,36 @@
 const memory = {
 
-    bankOfImages: [
-        "bird",
-        "brain",
-        "christmas",
-        "elephant",
-        "eye",
-        "kitchen",
-        "leaves",
-        "painting",
-        "skull",
-        "trees",
-        "unicorn",
-        "whale",
-    ],
+    bankOfImages: {
+        classic: [
+            "bird",
+            "brain",
+            "christmas",
+            "elephant",
+            "eye",
+            "kitchen",
+            "leaves",
+            "painting",
+            "skull",
+            "trees",
+            "unicorn",
+            "whale",
+        ],
+        lpr: [
+            "brendan",
+            "marion",
+            "din",
+            "mayo",
+            "bat",
+            "clem",
+            "tits",
+            "noemie",
+            "vince",
+            "ariane",
+            "pizza",
+            "apero",
+        ]
+
+    },
 
     score: 0,
     consecutiveScore: 0,
@@ -35,7 +52,7 @@ const memory = {
     createTiles(noTiles) {
         const memoryContainer = document.querySelector("#memory-container");
         for (let i = 0; i < noTiles; i++) {
-            let image = memory.bankOfImages[Math.floor(i / 2)];
+            let image = memory.bankOfImages[memory.params.selectedTheme][Math.floor(i / 2)];
             let newTile = document.createElement("div");
             newTile.classList.add("tile");
             newTile.classList.add(i);
@@ -103,7 +120,7 @@ const memory = {
     fromVersoToRecto(tile) {
         tile.classList.toggle('verso');
         tile.classList.toggle('recto');
-        tile.style.background = `url(../images/${tile.dataset.img}.png) center / cover`;
+        tile.style.background = `url(../images/${memory.params.selectedTheme}/${tile.dataset.img}.png) center / cover`;
     },
 
     checkTwoTiles(tile1, tile2) {

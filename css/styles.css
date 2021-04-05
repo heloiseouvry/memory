@@ -82,6 +82,40 @@ header {
   font-size: 1.3rem;
 }
 
+#end-menu {
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 50vh;
+  background-color: #75bd3a;
+  box-shadow: 0 0 20px #72b38f;
+  border-radius: 2vw;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#end-menu button {
+  padding: 1vh 1vw;
+  background-color: #8affbf;
+  box-shadow: 0 0 5px #72b38f;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+#faded-bckg {
+  background-color: #ffffff91;
+  position: absolute;
+  top: 15vh;
+  left: 0;
+  width: 100vw;
+  height: 85vh;
+}
+
 #memory-container {
   display: flex;
   align-items: flex-start;

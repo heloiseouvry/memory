@@ -21,10 +21,15 @@ const memory = {
     rectoTiles: [],
 
     init() {
-        memory.createTiles(24);
-        memory.setTileSize(6);
         memory.eventListener();
+<<<<<<< Updated upstream
         memory.shuffleTiles();
+=======
+        // memory.createTiles(24);
+        // memory.setTileSize(6);
+        // memory.shuffleTiles();
+        memory.displayScore(memory.score);
+>>>>>>> Stashed changes
         console.log('init');
     },
 
@@ -138,12 +143,13 @@ const memory = {
         const consecutiveScorePara = document.querySelector(".consecutive-score-text");
         const consecutiveScoreSpan = document.querySelector("#consecutive-score");
         consecutiveScoreSpan.textContent = memory.bestConsecutiveScore;
+<<<<<<< Updated upstream
         if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "inline";}
+=======
+        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "initial";}
+>>>>>>> Stashed changes
     },
 
-    checkConsecutiveScore(){
-
-    }
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

@@ -11,12 +11,28 @@
   <body>
     <header>
       <h1 id="main-title">Memory Game</h1>
+<<<<<<< Updated upstream
       <div class="score-container">
         <h2 class="score-text">Score : <span id="score"></span></h2>
         <p class="consecutive-score-text">Best consecutive score : <span id="consecutive-score"></span></p>
+=======
+      <div>
+        <h2 class="score-text">Score : <span id="score"></span></h2>
+        <p class="consecutive-score-text">
+          Best consecutive score : <span id="consecutive-score"></span>
+        </p>
+>>>>>>> Stashed changes
       </div>
     </header>
     <main>
+      <div id="start-menu" style="display: flex" data-lpr="false">
+        <div id="lpr-toggle">
+          <label class="switch-wrap">
+            <input type="checkbox" />
+            <span class="switch"></span>
+          </label>
+        </div>
+      </div>
       <div id="memory-container"></div>
     </main>
     <script src="../js/app.js"></script>

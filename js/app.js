@@ -194,7 +194,6 @@ const memory = {
         memory.shuffleTiles();
         memory.displayScore(memory.score);
     },
-    },
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

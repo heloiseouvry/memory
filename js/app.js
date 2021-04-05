@@ -19,6 +19,12 @@ const memory = {
     consecutiveScore: 0,
     bestConsecutiveScore: 0,
     rectoTiles: [],
+    params: {
+        theme: ["classic", "lpr"],
+        difficulty: ["easy", "normal", "hard"],
+        selectedTheme: "classic",
+        selectedDifficulty: "normal"
+    },
 
     init() {
         memory.createTiles(24);
@@ -62,6 +68,7 @@ const memory = {
 
     eventListener() {
         document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
+        document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
     },
 
     handleTileClick(event) {
@@ -142,9 +149,17 @@ const memory = {
         if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "inline";}
     },
 
-    checkConsecutiveScore(){
-
-    }
+    handleFormSubmit(event) {
+        event.preventDefault();
+        for(const theme of memory.params.theme){
+            if(document.querySelector(`#start-menu__form__theme--${theme}`).checked){memory.params.selectedTheme = theme};
+        }
+        console.log(memory.params.selectedTheme);
+        for(const difficulty of memory.params.difficulty){
+            if(document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked){memory.params.selectedDifficulty = difficulty};
+        }
+        console.log(memory.params.selectedDifficulty);
+    },
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);

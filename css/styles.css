@@ -13,10 +13,10 @@ body {
 header {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100vw;
-    padding-top: 2em;
+    padding-top: 1em;
     background-color: #87f783;
     font-weight: bold;
 }
@@ -26,14 +26,20 @@ header {
     margin-bottom: 0.5em;
 }
 
+.score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
 .score-text {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
 }
 
 .consecutive-score-text {
-    margin-bottom: 1em;
-    visibility: hidden;
+    margin-left: 1em;
+    display: none;
 }
 
 #memory-container {

@@ -35,6 +35,7 @@ const memory = {
     score: 0,
     consecutiveScore: 0,
     bestConsecutiveScore: 0,
+    noTiles: 16,
     rectoTiles: [],
     params: {
         theme: ["classic", "lpr"],
@@ -135,6 +136,7 @@ const memory = {
             memory.consecutiveScore = 0;
             setTimeout(memory.hideTiles, 500);
         }
+        memory.checkIfWon();
 
     },
 
@@ -178,21 +180,26 @@ const memory = {
         document.querySelector("#start-menu").style.display = "none";
         switch (memory.params.selectedDifficulty) {
             case "easy":
-                memory.createTiles(8);
-                memory.setTileSize(8);
+                memory.noTiles = 8;
                 break;
             case "normal":
-                memory.createTiles(16);
-                memory.setTileSize(16);
+                memory.noTiles = 16;
                 break;
             case "hard":
-                memory.createTiles(24);
-                memory.setTileSize(24);
+                memory.noTiles = 24;
                 break;
         }
+        memory.createTiles(memory.noTiles);
+        memory.setTileSize(memory.noTiles);
         document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
         memory.shuffleTiles();
         memory.displayScore(memory.score);
+    },
+
+    checkIfWon() {
+        if(memory.score === (memory.noTiles / 2)){
+            console.log("C'est gagné !");
+        };
     },
 }
 

@@ -27,11 +27,8 @@ const memory = {
     },
 
     init() {
-        memory.createTiles(24);
-        memory.setTileSize(6);
-        memory.eventListener();
-        memory.shuffleTiles();
-        memory.displayScore(memory.score);
+        document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
+        
         console.log('init');
     },
 
@@ -67,8 +64,6 @@ const memory = {
     },
 
     eventListener() {
-        document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
-        document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
     },
 
     handleTileClick(event) {
@@ -154,11 +149,19 @@ const memory = {
         for(const theme of memory.params.theme){
             if(document.querySelector(`#start-menu__form__theme--${theme}`).checked){memory.params.selectedTheme = theme};
         }
-        console.log(memory.params.selectedTheme);
         for(const difficulty of memory.params.difficulty){
             if(document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked){memory.params.selectedDifficulty = difficulty};
         }
-        console.log(memory.params.selectedDifficulty);
+        memory.launchGame();
+    },
+
+    launchGame() {
+        document.querySelector("#start-menu").style.display = "none";
+        memory.createTiles(24);
+        memory.setTileSize(6);
+        document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
+        memory.shuffleTiles();
+        memory.displayScore(memory.score);
     },
 }
 

@@ -139,7 +139,7 @@ const memory = {
         const consecutiveScorePara = document.querySelector(".consecutive-score-text");
         const consecutiveScoreSpan = document.querySelector("#consecutive-score");
         consecutiveScoreSpan.textContent = memory.bestConsecutiveScore;
-        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.visibility = "visible";}
+        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "inline";}
     },
 
     checkConsecutiveScore(){

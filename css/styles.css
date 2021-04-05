@@ -1,53 +1,93 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
 }
 
 header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
-    padding-top: 2em;
-    background-color: #87f783;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding-top: 1em;
+  background-color: #87f783;
+  font-weight: bold;
 }
 
 #main-title {
-    font-size: 3em;
-    margin-bottom: 0.5em;
+  font-size: 3em;
+  margin-bottom: 0.5em;
+}
+
+.score-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 .score-text {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
+  font-size: 1.5em;
 }
 
 .consecutive-score-text {
-    margin-bottom: 1em;
-    visibility: hidden;
+  margin-left: 1em;
+  display: none;
+}
+
+#start-menu {
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 50vh;
+  background-color: #c85;
+  border-radius: 2vw;
+  display: flex;
+  justify-content: center;
+}
+
+.start-menu__form {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    font-size: 1.3rem;
+}
+
+.start-menu__form legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.start-menu__form__play {
+    align-self: center;
+    padding: 1vh 1vw;
+    background-color: rgb(255, 208, 172);
+    border-radius: 5px;
 }
 
 #memory-container {
-    width: 60vw;
-    background-color: #57b6f5;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  width: 60vw;
+  background-color: #57b6f5;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .tile {
-    border: 2px solid black;
+  border: 2px solid black;
 }
 
 .tile.verso {
-    background: url(../images/tile_verso.jpg) 0% 0% / cover;
+  background: url(../images/tile_verso.jpg) 0% 0% / cover;
 }

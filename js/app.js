@@ -1,42 +1,57 @@
 const memory = {
 
-    bankOfImages: [
-        "bird",
-        "brain",
-        "christmas",
-        "elephant",
-        "eye",
-        "kitchen",
-        "leaves",
-        "painting",
-        "skull",
-        "trees",
-        "unicorn",
-        "whale",
-    ],
+    bankOfImages: {
+        classic: [
+            "bird",
+            "brain",
+            "christmas",
+            "elephant",
+            "eye",
+            "kitchen",
+            "leaves",
+            "painting",
+            "skull",
+            "trees",
+            "unicorn",
+            "whale",
+        ],
+        lpr: [
+            "brendan",
+            "marion",
+            "din",
+            "mayo",
+            "bat",
+            "clem",
+            "tits",
+            "noemie",
+            "vince",
+            "ariane",
+            "pizza",
+            "apero",
+        ]
+
+    },
 
     score: 0,
     consecutiveScore: 0,
     bestConsecutiveScore: 0,
     rectoTiles: [],
+    params: {
+        theme: ["classic", "lpr"],
+        difficulty: ["easy", "normal", "hard"],
+        selectedTheme: "classic",
+        selectedDifficulty: "normal"
+    },
 
     init() {
-        memory.eventListener();
-<<<<<<< Updated upstream
-        memory.shuffleTiles();
-=======
-        // memory.createTiles(24);
-        // memory.setTileSize(6);
-        // memory.shuffleTiles();
-        memory.displayScore(memory.score);
->>>>>>> Stashed changes
+        document.querySelector("#start-menu__form").addEventListener("submit", memory.handleFormSubmit);
         console.log('init');
     },
 
     createTiles(noTiles) {
         const memoryContainer = document.querySelector("#memory-container");
         for (let i = 0; i < noTiles; i++) {
-            let image = memory.bankOfImages[Math.floor(i / 2)];
+            let image = memory.bankOfImages[memory.params.selectedTheme][Math.floor(i / 2)];
             let newTile = document.createElement("div");
             newTile.classList.add("tile");
             newTile.classList.add(i);
@@ -46,13 +61,16 @@ const memory = {
         }
     },
 
-    setTileSize(noTilesPerRow) {
+    setTileSize(noTiles) {
         const memoryContainer = document.querySelector("#memory-container");
-        const memoryContainerStyles = window.getComputedStyle(memoryContainer);
+        const memoryContainerHeight = parseInt(memoryContainer.style.height);
         let tiles = document.querySelectorAll(".tile");
+        let noTilesPerRow = noTiles < 20 ? 4 : 6;
+        let noTilesPerColumn = noTiles / noTilesPerRow;
         for (let tile of tiles) {
-            tile.style.width = tile.style.height = (parseInt(memoryContainerStyles.width) / noTilesPerRow) + "px";
+            tile.style.width = tile.style.height = (memoryContainerHeight / noTilesPerColumn) + "px";
         }
+        memoryContainer.style.width = parseInt(tiles[0].style.width) * noTilesPerRow + "px";
     },
 
     createRandomSet() {
@@ -65,7 +83,6 @@ const memory = {
     },
 
     eventListener() {
-        document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
     },
 
     handleTileClick(event) {
@@ -102,7 +119,7 @@ const memory = {
     fromVersoToRecto(tile) {
         tile.classList.toggle('verso');
         tile.classList.toggle('recto');
-        tile.style.background = `url(../images/${tile.dataset.img}.png) center / cover`;
+        tile.style.background = `url(../images/${memory.params.selectedTheme}/${tile.dataset.img}.png) center / cover`;
     },
 
     checkTwoTiles(tile1, tile2) {
@@ -111,7 +128,7 @@ const memory = {
             memory.score++;
             memory.displayScore(memory.score);
             memory.consecutiveScore++;
-            if(memory.consecutiveScore > memory.bestConsecutiveScore){memory.bestConsecutiveScore = memory.consecutiveScore}
+            if (memory.consecutiveScore > memory.bestConsecutiveScore) { memory.bestConsecutiveScore = memory.consecutiveScore }
             memory.displayConsecutiveScore(memory.bestConsecutiveScore);
             memory.rectoTiles = [];
         } else {
@@ -143,13 +160,41 @@ const memory = {
         const consecutiveScorePara = document.querySelector(".consecutive-score-text");
         const consecutiveScoreSpan = document.querySelector("#consecutive-score");
         consecutiveScoreSpan.textContent = memory.bestConsecutiveScore;
-<<<<<<< Updated upstream
-        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "inline";}
-=======
-        if(memory.bestConsecutiveScore > 1){consecutiveScorePara.style.display = "initial";}
->>>>>>> Stashed changes
+        if (memory.bestConsecutiveScore > 1) { consecutiveScorePara.style.display = "inline"; }
     },
 
+    handleFormSubmit(event) {
+        event.preventDefault();
+        for (const theme of memory.params.theme) {
+            if (document.querySelector(`#start-menu__form__theme--${theme}`).checked) { memory.params.selectedTheme = theme };
+        }
+        for (const difficulty of memory.params.difficulty) {
+            if (document.querySelector(`#start-menu__form__difficulty--${difficulty}`).checked) { memory.params.selectedDifficulty = difficulty };
+        }
+        memory.launchGame();
+    },
+
+    launchGame() {
+        document.querySelector("#start-menu").style.display = "none";
+        switch (memory.params.selectedDifficulty) {
+            case "easy":
+                memory.createTiles(8);
+                memory.setTileSize(8);
+                break;
+            case "normal":
+                memory.createTiles(16);
+                memory.setTileSize(16);
+                break;
+            case "hard":
+                memory.createTiles(24);
+                memory.setTileSize(24);
+                break;
+        }
+        document.querySelector("#memory-container").addEventListener("click", memory.handleTileClick);
+        memory.shuffleTiles();
+        memory.displayScore(memory.score);
+    },
+    },
 }
 
 document.addEventListener('DOMContentLoaded', memory.init);
